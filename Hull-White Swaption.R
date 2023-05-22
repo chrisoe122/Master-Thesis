@@ -39,7 +39,7 @@ A<-function(t,TT, sigma, lambda){
 }
 
 P<-function(t,TT,x, sigma, lambda){
-  A(t,TT, sigma, lambda)*exp(-B(t,TT, lambda)*x) #Der er minus foran B, som der ikke er i paper (Tror fejl i paper)
+  A(t,TT, sigma, lambda)*exp(-B(t,TT, lambda)*x) #(Mistake in paper (QIAN))
 }
 
 ZBC<-function(t,TT,S,X,sigma,lambda,x){ #Bringo 'smile volatility'
@@ -50,7 +50,7 @@ ZBC<-function(t,TT,S,X,sigma,lambda,x){ #Bringo 'smile volatility'
 
 
 #Simulating of the rate
-alpha<-function(t){ #BUUUUUUUUUUUURDE OGSÅ AFHÆNGE AF LAMBDA OG SIGMA
+alpha<-function(t){ 
   0.01+sigma^2/(2*lambda^2)*(1-exp(-lambda*t))^2 #Comes from Brigo-Interest rate s. 73
 }
 

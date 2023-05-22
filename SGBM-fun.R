@@ -5,7 +5,6 @@ library(geometry)
 library(plyr)
 library(RcppEigen)
 library(collapse)
-############ BRUGES ALLE DISSE? ###########################
 
 
 
@@ -24,7 +23,7 @@ SGBM<-function(X,Xa,KQ,KA,dt,Q,EX,fm,sigma1,lambda1,kp){
   ###Charastic function
   Atilde1<-function(tau){
     sigma^2/(2*lambda^3)*(lambda*tau-2*(1-exp(-lambda*tau))+1/2*(1-exp(-2*lambda*tau)))
-  } #PAPER har flere steder byttet om på sigma og lambda
+  } #PAPER have changed sigma og lambda
   
   
   Btilde1<-function(tau){
@@ -33,7 +32,7 @@ SGBM<-function(X,Xa,KQ,KA,dt,Q,EX,fm,sigma1,lambda1,kp){
   
   thetaint<-function(t,TT){
     fm*(TT-t)+sigma^2/(4*lambda^3)*(2*lambda*(TT-t)+4*(exp(-lambda*TT)-exp(-lambda*t))-(exp(-2*lambda*TT)-exp(-2*lambda*t)))
-  } #PAPER (QIAN) HAR GLEMT 2-TAL FORAN LAMBDA. NIIIIIIIIIIIICE
+  } #PAPER (QIAN) have forgotten a  2 in front of lambda.
   
   
   theta<-function(t){
@@ -47,13 +46,13 @@ SGBM<-function(X,Xa,KQ,KA,dt,Q,EX,fm,sigma1,lambda1,kp){
   difChf1<-function(t,TT,r){# Diff chr. fnc.
     dChf1(t,TT,r)*(theta(TT)-sigma^2/(2*lambda^2)*(1-exp(-lambda*(TT-t)))^2+
                      exp(-lambda*(TT-t))*(r-theta(t)))
-  } #VALIDERET #PAPER har flere steder byttet om på sigma og lambda (Atilde)
+  } #VALIDERET
   
   
   dif2Chf1<-function(t,TT,r){# Double diff chr. fnc
     dChf1(t,TT,r)*sigma^2/(2*lambda)*(1-exp(-2*lambda*(TT-t)))+
       dChf1(t,TT,r)*(theta(TT)-sigma^2/(2*lambda^2)*(1-exp(-lambda*(TT-t)))^2+exp(-lambda*(TT-t))*(r-theta(t)))^2
-  } #VALIDERET #PAPER har flere steder byttet om på sigma og lambda (Atilde)
+  } #VALIDERET
   
   
   
@@ -178,7 +177,6 @@ dChrdata<-rbind(læ,læ1,læ2)
 Cm[,(time-1)]<- t(dChrdata)%*%bmny[,1]
 EQ[,time-1]<- Re(Cm[,time-1])
 Vny[,time-1]<- Re(Cm[,time-1])
-#Dm[,time-1]<-0.01 #Dette bruger jeg ikke
 
 
 
@@ -218,7 +216,7 @@ for( p in 1:EX){
   
   ### Period with exercise possiblility
   qbreak<-c(-1,Dm[,(time-1)],1)
-  dfa<-data.table(Xa[,time-1]) #Tjek at index passer
+  dfa<-data.table(Xa[,time-1])
   setDT(dfa)[,qlabels:=cut(V1,qbreak, labels=qlabels)]
   dfb<-data.table(t(bmny[,((time-3)*10+2):((time-2)*10+1)]),qlabels)
   dfc<-inner_join(dfa,dfb,by="qlabels")
@@ -247,7 +245,7 @@ for (q in 1:(Q/dt-1)){
   
   ###Intermediates dates
   qbreak<-c(-1,Dm[,(time-1)],1)
-  dfa<-data.table(Xa[,time-1]) #Tjek at index passer
+  dfa<-data.table(Xa[,time-1])
   setDT(dfa)[,qlabels:=cut(V1,qbreak, labels=qlabels)]
   dfb<-data.table(t(bmny[,((time-3)*10+2):((time-2)*10+1)]),qlabels)
   dfc<-inner_join(dfa,dfb,by="qlabels")
@@ -308,7 +306,7 @@ mEQ[i]<-mean(EQ[,i])
 mDEQ[i]<-mean(DEQ[,i])
 PFEq[i]<-quantile(EQ[,i],p=0.99)
 
-for (i in 2:(TT+1)){ #Paper har fejl i dsicounting. Skal være m-1 i summen i stedet for m+1 (tænker jeg)
+for (i in 2:(TT+1)){
   AQ<- AQ- 0.5*(X[,i-1]+X[,i])*dt
   DEQ[,i]<- exp(AQ)*EQ[,i]
   mEQ[i]<-mean(EQ[,i])
@@ -327,7 +325,7 @@ point<-seq(0,end,dt)
 
 CVA<-rep(NA,TT)
 
-for (i in 1:(TT)){ #Skal 0 være med?
+for (i in 1:(TT)){
   CVA[i]<- mDEQ[i+1]*(dPS(point[i+1])-dPS(point[i]))
 }
 

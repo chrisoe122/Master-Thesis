@@ -1,6 +1,6 @@
 library(mpoly)
 library(pracma)
-library(chebInterp) #Bruges denne? Og de andre?
+library(chebInterp)
 
 
 
@@ -70,7 +70,7 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
     return(result)
   }
   
-  Gammat<-function(N, mu, sigma){ #Funktion to create Gamma
+  Gammat<-function(N, mu, sigma){ #Function to create Gamma
     hold<-matrix(data=NA, nrow=length(mu), ncol=(N+1)) #col=p_j, row=x_j
     
     for (i in 1:length(mu)){
@@ -83,7 +83,7 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
     ((j+n)%%2==1)
   }
   
-  alpha<-function(t){ #BUUUUUUUUUUUURDE OGSÅ AFHÆNGE AF LAMBDA OG SIGMA
+  alpha<-function(t){ 
     0.01+sigma^2/(2*lambda^2)*(1-exp(-lambda*t))^2 #Comes from Brigo-Interest rate s. 73
   }
   
@@ -203,7 +203,7 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
   # Creting the nodal values
   sigmafull<-sqrt(sigma^2/(2*lambda)*(1-exp(-2*lambda*end)))
   meanfull<- alpha(end)+(fm-alpha(0))*exp(-lambda*end)
-  xned<- mun(end,0.01)-kk*sigma*sqrt(end) ##############HARDCODET 5? Skal det være TT?
+  xned<- mun(end,0.01)-kk*sigma*sqrt(end)
   xop<- mun(end,0.01)+kk*sigma*sqrt(end)
   z<-cos(pi*seq(0,N)/N)
   xks<-tau(xned,xop,z)
@@ -247,7 +247,6 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
     #print(time-1)
     time<-time-1
     #Coef for VCh(time). From future period.
-    #a1<-Sys.time()
     LL<-CCV(N,time+1)
     #Computing VCh(time)
     VCh[,time]<-(Glist[[time]]%*%LL)*exp(-dt*xks)
@@ -461,7 +460,7 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
   
   
   for (i in 2:(TT+1)){
-    AQC<- AQC- 0.5*(X[,i-1]+X[,i])*dt ##################### EN SMULE ANDERLEDES
+    AQC<- AQC- 0.5*(X[,i-1]+X[,i])*dt
     DEQC[,i]<- exp(AQC)*EQChe[,i]
     mDEQC[i]<-mean(DEQC[,i])
     mEQC[i]<-mean(EQChe[,i])
@@ -478,7 +477,7 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
   CVAC<-rep(NA,TT)
   
   
-  for (i in 1:(TT)){ #Skal 0 være med?
+  for (i in 1:(TT)){
     CVAC[i]<- mDEQC[i+1]*(dPS(point[i+1])-dPS(point[i]))
   }
   

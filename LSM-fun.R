@@ -20,7 +20,7 @@ LSM<-function(X,XaL,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp){
   
 #Parameters
 TT<-(EX+Q)/dt
-exercisestep<-1/dt ############### HARDCODED
+exercisestep<-1/dt
 end<-dt*TT
 K<- S(fm,Q,(EX+Q), sigma, lambda)*kp
 
@@ -59,7 +59,7 @@ for (j in 1:EX){
     time<-time-1}
   
   #Exercising
-  time<- time -1 #Da notation her er plus 1
+  time<- time -1 #Since notation is plus 1
   rtime<- (time-1)*dt
   IN<- (U(X[,time],rtime,end, K,sigma, lambda)>0)
   
@@ -83,7 +83,6 @@ for (j in 1:EX){
   qIN<-q[1,IN]
   VINN1<- U(XINN,rtime,end, K,sigma, lambda) #"ALL EXERCISING"
   VINN1[NEXX]<- exp(-0.5*(XINN[NEXX]+XINN2[NEXX])*dt)*qIN[NEXX] #Those who are not exercised
-  #VINN1[NEXX]<- CASHH[NEXX] #Those who are not exercised
   
   # 
   V[,time]<- exp(-0.5*(X[,time]+X[,time+1])*dt)*q[1,] #All
@@ -117,7 +116,7 @@ for (p in 1:Q){
   
   V[,time]<-exp(-0.5*(X[,time]+X[,time+1])*dt)*q[1,]
   BL[,time]<- flm(X=cbind(1,X[,time],Y[,time],Z[,time]),y=V[,time])
-  EQL[,time]<- BL[1,time]+BL[2,time]*X[,time]+BL[3,time]*Y[,time]+BL[4,time]*Z[,time] #Ændret tid her
+  EQL[,time]<- BL[1,time]+BL[2,time]*X[,time]+BL[3,time]*Y[,time]+BL[4,time]*Z[,time]
 }
 
 EQL[,time]<- BL[1,time]
@@ -147,7 +146,7 @@ for (j in 1:EX){
   }
   
   #Exercising
-  time<- time -1 #Da notation her er plus 1
+  time<- time -1 
   rtime<- (time-1)*dt
   
   
@@ -174,7 +173,7 @@ for (p in 1:(Q/dt-1)){
   time<-time-1
 }
 
-EAL[,time-1]<-mean(V[,time-1]) #Eksponering i første periode, må være værdien
+EAL[,time-1]<-mean(V[,time-1])
 
 slutLSM<-Sys.time()
 
@@ -229,7 +228,7 @@ point<-seq(0,end,dt)
 CVAL<-rep(NA,TT)
 
 
-for (i in 1:(TT)){ #Skal 0 være med?
+for (i in 1:(TT)){
   CVAL[i]<- mDEQL[i+1]*(dPS(point[i+1])-dPS(point[i]))
 }
 
