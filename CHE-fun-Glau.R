@@ -1,10 +1,5 @@
-library(mpoly)
-library(pracma)
-library(chebInterp)
-
-
-
-source("C:/Users/Chris/Documents/Mat-øk/5. år/Speciale/R-kode/Swaption/Hull-White Swaption.R")
+#source("C:/Users/Chris/Documents/Mat-øk/5. år/Speciale/R-kode/Swaption/Hull-White Swaption.R")
+#Need Hull-White Swaption.R
 
 
 CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep){
