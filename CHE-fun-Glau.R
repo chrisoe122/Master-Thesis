@@ -240,7 +240,6 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
   
   EQChe[,time]<-CChe[,time]
   
-  ab<-Sys.time()
   
   #Before last exercise
   for (j in 1:(exercisestep-2)){
@@ -273,7 +272,6 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
   EXX<- (Cont<=U(X[,time],(time-1)*dt,end,KK, sigma, lambda))
   EQChe[EXX,]<-0
   
-  abb<-Sys.time()
   
   #Remaining exercise periods
   for (QW in 1:(EX-1)){
@@ -316,13 +314,10 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
       #Coef for VCh(time). From future period.
       LL<-CCV(N,time+1)
       #Computing VCh(time)
-      a1<-Sys.time()
-      VCh[,time]<-(Glist[[time]]%*%LL)*exp(-dt*xks)
-      a2<-Sys.time()
+      VCh[,time]<-(Glist[[time]]%*%LL)*exp(-dt*xks) 
       
       #Computing V(X)
       CChe[,time]<-IV(X[,time],N, time)
-      a3<-Sys.time()
       EQChe[,time]<-CChe[,time]
     }
   }
@@ -346,8 +341,6 @@ CheVGLAU<-function(X,XaChe,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp, kk, N, exercisestep
   time<-time-1
   CCheA[,time]<-IV(XaChe[,time],N,time)
   EQCheA[,time]<-CCheA[,time]
-  
-  ab<-Sys.time()
   
   #Before last exercise
   for (j in 1:(exercisestep-2)){
