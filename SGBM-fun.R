@@ -1,17 +1,14 @@
 library(dplyr)
-library(forestmangr)
 library(data.table)
 library(geometry)
-library(plyr)
-library(RcppEigen)
 library(collapse)
 
 
 
 #SGBM
 
-source("C:/Users/Chris/Documents/Mat-øk/5. år/Speciale/R-kode/Swaption/Hull-White Swaption.R")
-
+#source("C:/Users/Chris/Documents/Mat-øk/5. år/Speciale/R-kode/Swaption/Hull-White Swaption.R")
+#Need Hull-White Swaption.R
 
 
 
