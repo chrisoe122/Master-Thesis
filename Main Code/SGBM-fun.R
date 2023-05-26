@@ -3,16 +3,10 @@ library(data.table)
 library(geometry)
 library(collapse)
 
-
+#source("C:/Users/Chris/Documents/Mat-øk/5. år/Speciale/R-kode/Swaption/Hull-White Swaption.R")
+#Needs Hull-White Swaption.R
 
 #SGBM
-
-source("C:/Users/Chris/Documents/Mat-øk/5. år/Speciale/R-kode/Swaption/Hull-White Swaption.R")
-
-
-
-
-
 
 SGBM<-function(X,Xa,KQ,KA,dt,Q,EX,fm,sigma1,lambda1,kp){
 
