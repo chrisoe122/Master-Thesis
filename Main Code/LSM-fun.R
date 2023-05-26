@@ -1,13 +1,10 @@
 library(collapse)
-
+#source("C:/Users/Chris/Documents/Mat-øk/5. år/Speciale/R-kode/Swaption/Hull-White Swaption.R")
+#Needs Hull-White Swaption.R
 
 
 #LSM
 #Functions
-
-
-source("C:/Users/Chris/Documents/Mat-øk/5. år/Speciale/R-kode/Swaption/Hull-White Swaption.R")
-
 
 LSM<-function(X,XaL,KQ,KA,dt,Q,EX,fm,sigma,lambda,kp){
 
