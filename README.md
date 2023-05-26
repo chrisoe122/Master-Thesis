@@ -4,4 +4,4 @@ Hull-White-Swaption.R contains functions in regards to swaptions in the Hull-Whi
 
 Variations contains small variations of the code from 'Main Code'.
 
-Compare.R is like a scrapbook, where all the plots and tables are generated from. The code is not much intelligible. 
+Compare.R is like a scrapbook, where all the plots and tables are generated from. The code is less intelligible. 
